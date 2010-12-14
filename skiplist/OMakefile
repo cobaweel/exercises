@@ -1,0 +1,26 @@
+.PHONY: all install clean distclean test
+.SUBDIRS:
+.DEFAULT: all
+
+CFLAGS += -g
+ASFLAGS +=
+LDFLAGS += -lgtest -pthread
+INCLUDES +=
+
+TEST_FILES[] = 
+	skiplist
+	skiplist_test
+	test_main
+
+TEST = test_main
+
+all: $(CXXProgram $(TEST), $(TEST_FILES))
+
+clean:
+	-rm -f *.o *.omc *.gch *~ \#*
+
+distclean: clean
+	-rm -f $(TEST)
+
+test: all
+	valgrind ./test_main
